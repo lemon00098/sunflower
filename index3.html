@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <p>税抜きで値段を入力してください</p>
+    <input id="price" type="text" onkeyup="tax();">
+    <p>消費税額</p>
+    <p id="taxout"></p>
+    <p>合計価格</p>
+    <p id="TaxincludePriceInOut"></p>
+  </body>
+  <script>
+    function tax(){
+      var price = document.getElementById('price').value;
+      price = Number(price);
+      var taxout = Math.floor(price * 0.08);
+      var TaxincludePriceInOut = Math.floor(price * 1.08);
+      document.getElementById('taxout').innerHTML = taxout;
+      document.getElementById('TaxincludePriceInOut').innerHTML = TaxincludePriceInOut;
+    }
+  </script>
+</html>
