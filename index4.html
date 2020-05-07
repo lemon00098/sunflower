@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      body {
+        position: relative;
+      }
+      .checkwrap {
+        position: absolute;
+        left: 73px;
+        border-top: 1px solid gray;
+      }
+
+    </style>
+  </head>
+  <body>
+    <p id="check"></p>
+    <input type="checkbox" id="A" name="A" onchange="getCheck()">A
+    <input type="checkbox" id="B" name="B" onchange="getCheck()">B
+    <input type="checkbox" id="C" name="C" onchange="getCheck()">C
+    <input type="checkbox" id="D" name="D" onchange="getCheck()">D
+    <input type="checkbox" id="E" name="E" onchange="getCheck()">E
+    <div class="checkwrap">
+      <input id="all" type="checkbox" name="ALL" value="ALL" onchange="allGetCheck()">ALL
+      <p id="check2"></p>
+    </div>
+    <script type="text/javascript">
+      function getCheck(){
+        if(document.getElementById("A").checked){
+          document.getElementById("check").innerHTML="Aが選択されました";
+        }else if(document.getElementById("B").checked){
+          document.getElementById("check").innerHTML="Bが選択されました";
+        }else if(document.getElementById("C").checked){
+          document.getElementById("check").innerHTML="Cが選択されました";
+        }else if(document.getElementById("D").checked){
+          document.getElementById("check").innerHTML="Dが選択されました";
+        }else if(document.getElementById("E").checked){
+          document.getElementById("check").innerHTML="Eが選択されました";
+        }
+      }
+      function allGetCheck(){
+        document.getElementById("A").checked='checked';
+        document.getElementById("B").checked='checked';
+        document.getElementById("C").checked='checked';
+        document.getElementById("D").checked='checked';
+        document.getElementById("E").checked='checked';
+      }
+    </script>
+  </body>
+</html>
