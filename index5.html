@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      #wrapper {
+        width: 500px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="turnWrap">
+        <img src="images/spring.jpg" id="turn">
+        <button id="turnBtn" onclick="turn()" type="button" name="button">turn</button>
+      </div>
+      <div id="randomWrap">
+        <img src="images/spring.jpg" id="random">
+        <button id="randomBtn" onclick="random()" type="button" name="button">random</button>
+      </div>
+    </div>
+    <script type="text/javascript">
+      const pictures = new Array("images/spring.jpg","images/summer.jpg","images/autumn.jpg","images/winter.jpg");
+      let cnt = 0;
+
+      function turn(){
+          if(cnt === pictures.length-1){
+            cnt = 0;
+          }else{
+            cnt++;
+          }
+          document.getElementById("turn").src=pictures[cnt];
+      }
+
+
+      function random(){
+        let randomPic = pictures[Math.floor(Math.random() * pictures.length)];
+        document.getElementById("random").src = randomPic;
+      }
+    </script>
+  </body>
+</html>
