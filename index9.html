@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <TABLE>
+      <TR><TD colspan="4" align="center"><IMG src="images/ssaw.jpg" width="320" height="240" name="myBigImage"></TD></TR>
+      <TR>
+      <TD><A href="javascript:void(0)" onmouseover="myChgPic( 'images/spring.jpg' )" onmouseout="mouseout()"><IMG src="images/spring.jpg" width="100" height="75"></A></TD>
+      <TD><A href="javascript:void(0)" onmouseover="myChgPic( 'images/summer.jpg' )" onmouseout="mouseout()"><IMG src="images/summer.jpg" width="100" height="75"></A></TD>
+      <TD><A href="javascript:void(0)" onmouseover="myChgPic( 'images/autumn.jpg' )" onmouseout="mouseout()"><IMG src="images/autumn.jpg" width="100" height="75"></A></TD>
+      <TD><A href="javascript:void(0)" onmouseover="myChgPic( 'images/winter.jpg' )" onmouseout="mouseout()"><IMG src="images/winter.jpg" width="100" height="75"></A></TD>
+      </TR>
+    </TABLE>
+    <script type="text/javascript">
+      function myChgPic(myPicURL){
+           document.images["myBigImage"].src = myPicURL;
+      }
+      function mouseout(){
+           document.images["myBigImage"].src = "images/ssaw.jpg";
+      }
+    </script>
+  </body>
+</html>
