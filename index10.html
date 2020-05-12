@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form id="form01" class="" action="" method="post">
+      <input id="check" type="checkbox" name="" value="" onclick="checkboxOn();"><label for="check">同意する</label>
+      <input id="tf" type="submit" name="send" value="送信" disabled onclick="msg();">
+    </form>
+    <script>
+
+      function checkboxOn(){
+        const check = document.getElementById('check');
+
+        if(check.checked === true){
+          document.getElementById('tf').disabled = false;
+        }else{
+          document.getElementById('tf').disabled = true;
+        }
+      }
+
+      function msg(){
+        alert('送信しました');
+      }
+    </script>
+  </body>
+</html>
