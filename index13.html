@@ -20,13 +20,18 @@
     <script>
       function selection(){
         let str = document.getElementById('selectForm').value;
+        let str2 = document.getElementById('result');
         if(str==='無職'){
-          document.getElementById('result').innerHTML = 'お仕事してください！';          
+          document.getElementById('result').innerHTML = 'お仕事してください！';
+          str2.style.color = 'red';
+          str2.style.fontSize = '60px';
         }else if(str===''){
           document.getElementById('result').innerHTML = '';
         }else{
           let selectForm = document.getElementById('selectForm').value;
           document.getElementById('result').textContent = `${selectForm}が選択されました`;
+          str2.style.color = 'black';
+          str2.style.fontSize = '20px';
         }
       }
     </script>
