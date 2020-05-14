@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form name="form" action="" method="post">
+      <select id="fruits_select" name="fruits" onclick="fp(value);" multiple size="5">
+        <option value="apple">apple</option>
+        <option value="orange">orange</option>
+        <option value="banana">banana</option>
+        <option value="peach">peach</option>
+        <option value="grape">grape</option>
+      </select>
+    </form>
+    <p id="order"></p>
+    <script>
+      let form = document.form.fruits;
+      let order = document.getElementById('order');
+      let fruitsAry = [];
+      function fp(value){
+        if(form.options.length-1===fruitsAry.length){
+          order.innerHTML = '食べすぎは体に良くないです。。。';
+        }else{
+          fruitsAry.push(value);
+          let str = fruitsAry.join('と');
+          order.innerHTML = str;
+        }
+      }
+
+
+    </script>
+  </body>
+</html>
