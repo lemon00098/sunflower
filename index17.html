@@ -5,15 +5,22 @@
     <title></title>
   </head>
   <body>
-    <p>9 + 2 = ?</p>
+    <p id="plus"></p>
     <input type="number" name="number" id="num" onkeydown="answer();">
     <p>答えを入力してください</p>
     <img id="image" src=""></img>
     <script>
       const img = document.getElementById('image');
+
+      const n1 = Math.floor(Math.random()*11);
+      const n2 = Math.floor(Math.random()*11);
+      document.getElementById('plus').textContent = `${n1} + ${n2} = ?`;
+
       function answer(){
         const num = document.getElementById('num').value;
-        if(num === '11'){
+        const n = parseInt(num, 10);
+        const result = n1 + n2;
+        if(n === result){
           img.src = 'images/atari.png';
         }else{
           img.src = 'images/hazure.jpg';
