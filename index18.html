@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      #next {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <p id="calc"></p>
+    <input type="number" id="number" name="" onkeydown="problem();" value="">
+    <p>三回連続で正解してください</p>
+    <img id="ah" src="" alt="">
+    <button type="button" id="next" name="button" onclick="nextQ();">次へ</button>
+    <script>
+      const img = document.getElementById('ah');
+      let cnt = 0;
+
+
+      let n1 = Math.floor(Math.random() * 11);
+      let n2 = Math.floor(Math.random() * 11);
+      document.getElementById('calc').textContent = `${n1} + ${n2} = `;
+      let result01 = n1 + n2;
+
+      function randResult() {
+        n1 = Math.floor(Math.random() * 11);
+        n2 = Math.floor(Math.random() * 11);
+        result01 = n1 + n2;
+        document.getElementById('calc').textContent = `${n1} + ${n2} = `;
+      }
+
+
+      function problem() {
+        const number = document.getElementById('number').value;
+        const next = document.getElementById('next');
+        const numInt = parseInt(number, 10);
+        result01 = n1 + n2;
+        if(numInt === result01){
+          img.src = 'images/atari.png';
+          next.style.display = 'block';
+          cnt++;
+        }else{
+          img.src = 'images/hazure.jpg';
+          next.style.display = 'block';
+        }
+        if(cnt === 3){
+          img.src = 'images/omedeto.png';
+          next.style.display = 'none';
+        }
+      }
+
+
+      function nextQ() {
+        number.value = '';
+        randResult();
+        problem();
+        img.src = '';
+      }
+
+
+    </script>
+  </body>
+</html>
