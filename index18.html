@@ -11,9 +11,9 @@
   </head>
   <body>
     <p id="calc"></p>
-    <input type="number" id="number" name="" onkeydown="problem();" value="">
+    <input type="text" id="number" name="" onkeypress="problem();" value="">
     <p>三回連続で正解してください</p>
-    <img id="ah" src="" alt="">
+    <img id="ah" alt="">
     <button type="button" id="next" name="button" onclick="nextQ();">次へ</button>
     <script>
       const img = document.getElementById('ah');
@@ -38,17 +38,21 @@
         const next = document.getElementById('next');
         const numInt = parseInt(number, 10);
         result01 = n1 + n2;
-        if(numInt === result01){
-          img.src = 'images/atari.png';
-          next.style.display = 'block';
-          cnt++;
+        if(isNaN(number)){
+          alert('数値を入力してください');
         }else{
-          img.src = 'images/hazure.jpg';
-          next.style.display = 'block';
-        }
-        if(cnt === 3){
-          img.src = 'images/omedeto.png';
-          next.style.display = 'none';
+          if(numInt === result01  && event.keyCode == 13){
+            img.src = 'images/atari.png';
+            next.style.display = 'block';
+            cnt++;
+          }else if(numInt !== result01 && event.keyCode == 13){
+            img.src = 'images/hazure.jpg';
+            next.style.display = 'block';
+          }
+          if(cnt === 3){
+            img.src = 'images/omedeto.png';
+            next.style.display = 'none';
+          }
         }
       }
 
