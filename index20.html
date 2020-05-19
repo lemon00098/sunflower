@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <p>次の誕生日まで</p>
+    <h1 id="birthday"></h1>
+    <p>です</p>
+    <script>
+      //今日の日付を取得
+      const today = new Date();
+
+      //開催日を設定
+      const targetDay = new Date(2021,5,9);
+
+      remainDay = Math.floor((targetDay - today) / (24 * 60 * 60 * 1000));
+
+      remainDay++;
+
+      const birthday = document.getElementById('birthday');
+
+      if(remainDay > 0){
+        birthday.innerHTML = remainDay;
+      }
+    </script>
+  </body>
+</html>
