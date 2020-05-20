@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--途中経過が表示されないストップウォッチ-->
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <button id="start" type="button" name="button" onclick="startTimer(event);">開始</button>
+    <button id="end" type="button" name="button" disabled onclick="stopTimer();">終了</button>
+    <p id="timer"></p>
+    <script>
+    let start_time;
+    let stop_time;
+    let time;
+
+    //ストップウォッチ「開始」と終了ボタンのdisabled解除
+    function startTimer(e) {
+      const end = document.getElementById('end');
+      var e = e || window.event;
+      var btnCode;
+      if('object' == typeof e){
+        btnCode = e.button;
+        if(btnCode === 0){  //「0」は左側のボタンの意味
+          end.disabled = false;
+        }
+      }
+      start_time = Date.now();
+    }
+
+    //ストップウォッチの「終了」と秒数を表示
+    function stopTimer() {
+      stop_time = Date.now();
+      time = stop_time - start_time;
+      time = Math.floor(time / 1000);
+      document.getElementById('timer').innerHTML = `開始を押してから${time}秒後に終了しました。`;
+    }
+    </script>
+  </body>
+</html>
