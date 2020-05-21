@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      #calcDisplay, #timer {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="start">
+      <p id="startTxt">スタートボタンを押すとゲームを開始します</p>
+      <button id="startBtn" type="button" name="button" onclick="startGame();">start</button>
+    </div>
+    <div id="calcDisplay">
+      <p id="calc"></p>
+      <input type="text" id="number" name="" onkeypress="problem();" value="">
+      <p>三回連続で正解してください</p>
+      <img id="ah" alt="">
+      <button type="button" id="next" name="button" onclick="nextQ();">次へ</button>
+    </div>
+    <img id="result" src="">
+    <p id="timer"></p>
+    <script>
+    let start_time;
+    let stop_time;
+    let time;
+
+    //足し算ゲームスタート
+    function startGame() {
+      document.getElementById('calcDisplay').style.display = "block";
+      document.getElementById('start').style.display = "none";
+      start_time = Date.now(); //タイマースタート
+    }
+
+    const img = document.getElementById('ah');
+    const result = document.getElementById('result');
+    let cntCorrect = 0;    //正解数
+    let cntIncorrect = 0;  //不正解数
+
+    let n1 = Math.floor(Math.random() * 11);
+    let n2 = Math.floor(Math.random() * 11);
+    document.getElementById('calc').textContent = `${n1} + ${n2} = `;
+    let result01 = n1 + n2;
+
+    function randResult() {
+      n1 = Math.floor(Math.random() * 11);
+      n2 = Math.floor(Math.random() * 11);
+      result01 = n1 + n2;
+      document.getElementById('calc').textContent = `${n1} + ${n2} = `;
+    }
+
+    //足し算
+    function problem() {
+      const number = document.getElementById('number').value;
+      const next = document.getElementById('next');
+      const numInt = parseInt(number, 10);
+      result01 = n1 + n2;
+      if(isNaN(number)){
+        alert('数値を入力してください');
+      }else{
+          if(numInt === result01  && event.keyCode == 13){
+            img.src = 'images/atari.png';
+            next.style.display = 'block';
+            cntCorrect++;
+          }else if(numInt !== result01 && event.keyCode == 13){
+            img.src = 'images/hazure.jpg';
+            next.style.display = 'block';
+            cntIncorrect++;
+          }
+          //判定
+          if(cntCorrect === 3){
+            result.src = 'images/omedeto.png';
+            img.src = '';
+            next.style.display = 'none';
+            document.getElementById('calcDisplay').style.display = "none";
+            stopTimer();
+            document.getElementById('timer').innerHTML = `おめでとうございます!!${time}秒でクリアしました!!`;
+          }else if(cntIncorrect === 1 && cntCorrect === 2){
+            result.src = 'images/osii.jpg';
+            document.getElementById('calcDisplay').style.display = "none";
+            stopTimer();
+            document.getElementById('timer').innerHTML = `惜しい!!${time}秒でクリアしました!!`;
+          }else if(cntIncorrect === 2 &&cntCorrect === 1){
+            result.src = 'images/ganbatte.jpg';
+            document.getElementById('calcDisplay').style.display = "none";
+            stopTimer();
+            document.getElementById('timer').innerHTML = `頑張って!!${time}秒でクリアしました!!`;
+          }else if(cntIncorrect === 3 && cntCorrect === 0){
+            result.src = 'images/zanen.png'
+            document.getElementById('calcDisplay').style.display = "none";
+            stopTimer();
+            document.getElementById('timer').innerHTML = `残念!!${time}秒でクリアしました!!`;
+
+          }
+        }
+      }
+
+    //次の問題へ
+    function nextQ() {
+      number.value = '';
+      randResult();
+      problem();
+      img.src = '';
+    }
+
+    //タイマーストップ
+    function stopTimer() {
+      stop_time = Date.now();
+      time = stop_time - start_time;
+      time = Math.floor(time / 1000);
+      document.getElementById('timer').style.display = "block";
+    }
+
+    </script>
+  </body>
+</html>
