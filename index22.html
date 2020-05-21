@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title></title>
     <style media="screen">
-      #calcDisplay, #timer {
+      #calcDisplay, #timer, #resetMsg, #reset {
         display: none;
       }
     </style>
@@ -21,6 +21,8 @@
       <img id="ah" alt="">
       <button type="button" id="next" name="button" onclick="nextQ();">次へ</button>
     </div>
+    <p id="resetMsg">もう一度挑戦しますか？</p>
+    <button type="button" name="button" id="reset" onclick="reset();">reset</button>
     <img id="result" src="">
     <p id="timer"></p>
     <script>
@@ -40,10 +42,10 @@
     let cntCorrect = 0;    //正解数
     let cntIncorrect = 0;  //不正解数
 
-    let n1 = Math.floor(Math.random() * 11);
-    let n2 = Math.floor(Math.random() * 11);
-    document.getElementById('calc').textContent = `${n1} + ${n2} = `;
-    let result01 = n1 + n2;
+    // let n1 = Math.floor(Math.random() * 11);
+    // let n2 = Math.floor(Math.random() * 11);
+    // document.getElementById('calc').textContent = `${n1} + ${n2} = `;
+    // let result01 = n1 + n2;
 
     function randResult() {
       n1 = Math.floor(Math.random() * 11);
@@ -51,6 +53,8 @@
       result01 = n1 + n2;
       document.getElementById('calc').textContent = `${n1} + ${n2} = `;
     }
+
+    randResult();
 
     //足し算
     function problem() {
@@ -76,21 +80,29 @@
             img.src = '';
             next.style.display = 'none';
             document.getElementById('calcDisplay').style.display = "none";
+            document.getElementById('resetMsg').style.display = 'block';
+            document.getElementById('reset').style.display = 'block';
             stopTimer();
             document.getElementById('timer').innerHTML = `おめでとうございます!!${time}秒でクリアしました!!`;
           }else if(cntIncorrect === 1 && cntCorrect === 2){
             result.src = 'images/osii.jpg';
             document.getElementById('calcDisplay').style.display = "none";
+            document.getElementById('resetMsg').style.display = 'block';
+            document.getElementById('reset').style.display = 'block';
             stopTimer();
             document.getElementById('timer').innerHTML = `惜しい!!${time}秒でクリアしました!!`;
           }else if(cntIncorrect === 2 &&cntCorrect === 1){
             result.src = 'images/ganbatte.jpg';
             document.getElementById('calcDisplay').style.display = "none";
+            document.getElementById('resetMsg').style.display = 'block';
+            document.getElementById('reset').style.display = 'block';
             stopTimer();
             document.getElementById('timer').innerHTML = `頑張って!!${time}秒でクリアしました!!`;
           }else if(cntIncorrect === 3 && cntCorrect === 0){
             result.src = 'images/zanen.png'
             document.getElementById('calcDisplay').style.display = "none";
+            document.getElementById('resetMsg').style.display = 'block';
+            document.getElementById('reset').style.display = 'block';
             stopTimer();
             document.getElementById('timer').innerHTML = `残念!!${time}秒でクリアしました!!`;
 
@@ -112,6 +124,18 @@
       time = stop_time - start_time;
       time = Math.floor(time / 1000);
       document.getElementById('timer').style.display = "block";
+    }
+
+    function reset() {
+      cntCorrect = 0;
+      cntIncorrect = 0;
+      document.getElementById('resetMsg').style.display = 'none';
+      document.getElementById('reset').style.display = 'none';
+      document.getElementById('timer').style.display = "none";
+      startGame();
+      randResult();
+      problem();
+      result.src = '';
     }
 
     </script>
