@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script>
+    /*クラス命令を使い、クラスを定義*/
+    var Greengrocer = function(vegetable, price) {
+      this.vegetable = vegetable;
+      this.price = price;
+      this.priceDisplay = function() {
+        return `${this.vegetable}の税込み価格は${Math.floor(this.price * 1.08)}円です`;
+      }
+      this.salePrice = function() {
+        return `${this.vegetable}の2割引価格は${price-price*0.2}円です`;
+      }
+    }
+
+    var customer = new Greengrocer('キャベツ', 120);
+    console.log(customer.priceDisplay());
+    console.log(customer.salePrice());
+    console.log(customer.vegetable);
+    console.log(customer.price);
+    </script>
+  </body>
+</html>
