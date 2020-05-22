@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script>
+    //classでのメソッド定義時にエラーになる書き方
+    var Greengrocer = function(vegetable, price) {
+      this.vegetable = vegetable;
+      this.price = price;
+    }
+
+    var customer01 = new Greengrocer('ピーマン', 80);
+    this.priceDisplay = function() {
+      return `${this.vegetable}の税込み価格は${Math.floor(this.price * 1.08)}円です`;
+    }
+
+    console.log(customer01.priceDisplay());  //index24.html:20 Uncaught TypeError: customer01.priceDisplay is not a function
+    </script>
+  </body>
+</html>
