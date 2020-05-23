@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script>
+    class Greengrocer {
+      constructor(vegetable, price){
+        this.vegetable = vegetable;
+        this.price = price;
+      }
+      priceDisplay() {
+        console.log(`${this.vegetable}の税込み価格は${Math.floor(this.price * 1.08)}円です`);
+      }
+    }
+
+    class SuperMarket extends Greengrocer {
+      constructor(vegetable, price, seasoning, price2){
+        super(vegetable, price);
+        this.seasoning = seasoning;
+        this.price2 = price2;
+      }
+      salePrice() {
+        return `${this.seasoning}の税込み価格は${Math.floor(this.price2 * 1.08)}円です`;
+      }
+    }
+
+    const customer = new SuperMarket('ピーマン', '120', '砂糖', '300');
+    console.log(customer.priceDisplay());
+    console.log(customer.salePrice());
+    </script>
+  </body>
+</html>
