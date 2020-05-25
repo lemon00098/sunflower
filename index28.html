@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script>
+    //プロパティの参照時と代入時に呼び出されるメソッドを定義
+      class Circle {
+        constructor(bottom, height){
+          this.bottom = bottom;
+          this.width = width;
+        }
+        get area() {
+          return this.circleArea();
+        }
+        circleArea() {
+          return this.bottom * this.height / 2;
+        }
+      }
+
+      //静的なメソッドを一つ定義する
+      class Sweets {
+        bake() {
+          return this;
+        }
+        static eat() {
+          return this;
+        }
+      }
+
+      let obj = new Sweets();
+      obj.bake();
+      let bake = obj.bake;
+
+      Sweets.eat();
+      let eat = Sweets.eat;
+    </script>
+  </body>
+</html>
