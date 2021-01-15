@@ -1,0 +1,127 @@
+Option Explicit
+
+'1．エクセルファイルをCドライブにフォルダを作ってその中に入れる
+'2．
+
+Dim ws1 As Worksheet
+Dim wb As Workbook
+Dim FolderPath As String 'ブックのフォルダパス
+Dim OldFileName As String
+Dim NewFileName As String
+    
+'指定のフォルダからエクセルファイルをすべて取得
+Sub FileNameChange()
+    ThisWorkbook.Activate
+    Set ws1 = Worksheets("ファイル名変換")
+    ws1.Activate
+    
+    '変数の初期化処理(変数の中身を空にすること)
+    FolderPath = vbNullString
+    
+    'フォルダー選択処理
+    Call FolderSelect
+    
+    'キャンセルであれば処理終了
+    If FolderPath = vbNullString Then Exit Sub
+    
+    Dim IntLoop As Long
+    Dim buf As String
+    buf = Dir(FolderPath & "*.xls")
+    IntLoop = 2
+    
+    Do While buf <> ""
+        ws1.Cells(IntLoop, 1) = buf
+        IntLoop = IntLoop + 1
+        buf = Dir()
+    Loop
+End Sub
+
+'ファイル名を指定のファイル名に変換処理
+Sub FileNameGet()
+    '最終行取得変数
+    Dim LastRow As Long
+    
+    If ws1 Is Nothing Then
+        Set ws1 = Worksheets("ファイル名変換")
+    End If
+    
+    LastRow = ws1.Cells(Rows.Count, 1).End(xlUp).Row
+    Dim IntLoop2 As Integer
+    If LastRow < 2 Then
+        GoTo cancel
+    End If
+    
+    'ファイル変換ボタンを先に押したときの対処
+    If FolderPath = vbNullString Then
+        MsgBox "フォルダー選択がされておりません"
+    End If
+    
+    Dim fso As Object
+    Set fso = New FileSystemObject
+    
+    '繰り返しA列の値を取得
+    For IntLoop2 = 2 To LastRow
+        '現在のファイル名取得
+        OldFileName = ws1.Cells(IntLoop2, 1)
+        '変更後のファイル名取得
+        NewFileName = ws1.Cells(IntLoop2, 2)
+        
+        '途中、変更前のファイルの存在確認を行ってからファイル名変換を行っているが
+        '仮にフォルダにrファイルを消してしまってA列にはファイル名が記載されているのに
+        '実際にファイルが存在しないなどはエラーになってしまうから下のコードはその対策。
+        If fso.FileExists(FolderPath & OldFileName) = False Then
+            GoTo cancel
+        End If
+        
+        'A列とB列が入力されていることが大前提で、まずはA列とB列に入力された
+        '値が空でないか？を確認して、もし空だったら処理を終了させる処理を書いて、
+        '"入力されてませんよ"を促してあげる。
+        If NewFileName <> "" And OldFileName <> "" Then
+            'Nameステートメント:
+            'Name 変更したいファイル名 As変更後のファイル名
+            Name FolderPath & OldFileName As FolderPath & NewFileName
+        Else
+            'ファイル名が入力されていないとき
+            GoTo cancel
+        End If
+    Next IntLoop2
+    
+    MsgBox "処理が完了しました"
+    
+    Exit Sub
+    
+cancel:
+    MsgBox "A列またはB列にファイル名が入力されていません。" & vbCrLf & _
+           "またはフォルダにA列のファイル名が存在しません。" & vbCrLf & _
+           "処理を中断します。"
+           
+End Sub
+
+
+'A列、B列の2行目以降を削除
+Sub Clear()
+    If ws1 Is Nothing Then
+        Set ws1 = Worksheets("ファイル名変換")
+    End If
+    ws1.Range("A1").CurrentRegion.Offset(1, 0).ClearContents
+End Sub
+
+'フォルダー選択
+Private Sub FolderSelect()
+    'Application.FileDialogを使用することでダイアログ画面を表示することが出来る。
+    'msoFileDialogFolderPickerというものを指定することによってフォルダーを指定することが出来る。
+    
+    With Application.FileDialog(msoFileDialogFolderPicker)
+        '以下のIf文でフォルダー選択がキャンセルされた場合には、このファイル取得の処理自体を終了
+        'させるためEixit Subでこの処理を終わらせる。
+        If .Show = False Then
+            MsgBox "キャンセルしました"
+            Exit Sub
+        End If
+        FolderPath = .SelectedItems(1)
+        FolderPath = FolderPath & "\"
+        'If .Show = Falseではない、要するにフォルダを選択した場合には
+        'SelectedItems(1)番目に指定したフォルダのパスを指定する。
+        '(今回の場合フォルダは一つしか指定していないので必然的に「1」が入る。
+    End With
+End Sub
